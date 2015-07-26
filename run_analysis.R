@@ -31,6 +31,6 @@ names(Y) <- "activity"
 #Appropriately labels the data set with descriptive variable names. 
 
 names(subject) <- "Subject"
-cleaned <- cbind(subject, Y, X1)
-write.table(cleaned, "WearablesdataSet.txt", row.names = FALSE)
+DS <- cbind(subject, Y, X1)
+write.table(DS, "WearablesdataSet.txt", row.names = FALSE)
 
