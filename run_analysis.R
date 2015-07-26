@@ -34,3 +34,22 @@ names(subject) <- "Subject"
 DS <- cbind(subject, Y, X1)
 write.table(DS, "WearablesdataSet.txt", row.names = FALSE)
 
+#From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject."
+
+uniqueSubjects = unique(subject)[,1]
+totalSubjects = length(unique(subject)[,1])
+totalActivities = length(activities[,1])
+totalCols = dim(DS)[2]
+result = DS[1:(totalSubjects*totalActivities), ]
+
+row = 1
+for (s in 1:totalSubjects) {
+  for (a in 1:totalActivities) {
+    result[row, 1] = uniqueSubjects[s]
+    result[row, 2] = activities[a, 2]
+    tmp <- DS[DS$subject==s & DS$activity==activities[a, 2], ]
+    result[row, 3:totalCols] <- colMeans(tmp[, 3:totalCols])
+    row = row+1
+  }
+}
+write.table(result, "tidyDataSetWithAverages.txt")#180x68
